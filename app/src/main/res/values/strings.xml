@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">ATIS GPS Logger</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <string name="pref_header_bus_provider">Bus Settings</string>
+    <string name="pref_title_bus_provider">Bus Provider</string>
+    <string-array name="pref_bus_provider_titles">
+        <item>Alliance Bus</item>
+        <item>Anbessa Bus</item>
+        <item>Sheger Bus</item>
+        <item>Public Bus</item>
+    </string-array>
+
+    <string-array name="pref_bus_provider_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string name="pref_title_bus_routes">Bus Routes</string>
+    <string-array name="pref_bus_routes_titles">
+        <item>Lagare - Estifanos - Shiro Meda</item>
+        <item>Mexico - Estifanos - Shiro Meda</item>
+    </string-array>
+
+    <string-array name="pref_bus_routes_values">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string name="pref_header_location_resource">Location Settings</string>
+
+    <string name="pref_title_update_frequency">Update frequency</string>
+    <string-array name="pref_update_frequency_titles">
+        <item>Every 15 seconds</item>
+        <item>Every 30 seconds</item>
+        <item>Every 1 minute</item>
+        <item>Every 2 minutes</item>
+        <item>Every 5 minutes</item>
+        <item>Never</item>
+    </string-array>
+
+    <string-array name="pref_update_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>120</item>
+        <item>300</item>
+        <item>-1</item>
+    </string-array>
+
+
+</resources>

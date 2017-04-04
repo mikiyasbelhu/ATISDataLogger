@@ -1,0 +1,42 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- NOTE: Hide buttons to simplify the UI. Users can touch outside the dialog to
+         dismiss it. -->
+    <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
+    <PreferenceCategory
+        android:key="pref_key_bus_provider"
+        android:title="@string/pref_header_bus_provider">
+
+        <ListPreference
+            android:defaultValue="2"
+            android:entries="@array/pref_bus_provider_titles"
+            android:entryValues="@array/pref_bus_provider_values"
+            android:key="bus_provider"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/pref_title_bus_provider" />
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/pref_bus_routes_titles"
+            android:entryValues="@array/pref_bus_routes_values"
+            android:key="bus_routes"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/pref_title_bus_routes" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="pref_key_location_resource"
+        android:title="@string/pref_header_location_resource">
+
+        <ListPreference
+            android:defaultValue="30"
+            android:entries="@array/pref_update_frequency_titles"
+            android:entryValues="@array/pref_update_frequency_values"
+            android:key="update_frequency"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/pref_title_update_frequency" />
+    </PreferenceCategory>
+</PreferenceScreen>
