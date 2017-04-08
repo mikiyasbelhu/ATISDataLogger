@@ -37,29 +37,40 @@ public class GPSAdapter extends ArrayAdapter<GPSLog> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        //getting the layoutinflater
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        GpsViewHolder gpsViewHolder = null;
+        View listViewItem = convertView;
 
-        //getting listview items
-        View listViewItem = inflater.inflate(R.layout.logs, null);
-        TextView textViewLog = (TextView) listViewItem.findViewById(R.id.textViewLog);
-        ImageView imageViewStatus = (ImageView) listViewItem.findViewById(R.id.imageViewStatus);
+        if (listViewItem == null)
+        {
+            //getting the layoutinflater
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            //getting listview items
+            listViewItem = inflater.inflate(R.layout.logs, null);
+            gpsViewHolder = new GpsViewHolder(listViewItem);
+            listViewItem.setTag(gpsViewHolder);
+        }
+        else
+        {
+            gpsViewHolder = (GpsViewHolder) listViewItem.getTag();
+        }
 
         //getting the current log
-        GPSLog gpsLog = gpsLogs.get(position);
+        GPSLog gpsLog = gpsLogs.get(getCount() - position -1);
 
         //setting the gpsLog to textview
-        textViewLog.setText("Time: " + String.valueOf(gpsLog.getTime()) + "\n"
+        gpsViewHolder.textViewLog.setText(
+                " Log ID: " + String.valueOf(getCount() - position -1)+"\n"
+                + "Time: " + String.valueOf(gpsLog.getTime()) + "\n"
                 + "Latitude: " + String.valueOf(gpsLog.getLatitude()) + "\n"
-                + "Longitude: " + String.valueOf(gpsLog.getLongitude()));
+                + "Longitude: " + String.valueOf(gpsLog.getLongitude())+"\n");
 
         //if the synced status is 0 displaying
         //queued icon
         //else displaying synced icon
         if (gpsLog.getStatus() == 0)
-            imageViewStatus.setBackgroundResource(R.drawable.ic_queued);
+            gpsViewHolder.imageViewStatus.setBackgroundResource(R.drawable.ic_queued);
         else
-            imageViewStatus.setBackgroundResource(R.drawable.ic_cloud_done_green);
+            gpsViewHolder.imageViewStatus.setBackgroundResource(R.drawable.ic_cloud_done_green);
 
         return listViewItem;
     }
@@ -68,5 +79,18 @@ public class GPSAdapter extends ArrayAdapter<GPSLog> {
     @Override
     public GPSLog getItem(int position) {
         return super.getItem(super.getCount() - position -1);
+    }
+
+    class GpsViewHolder {
+
+        TextView textViewLog;
+        ImageView imageViewStatus;
+
+        GpsViewHolder (View listViewItem){
+
+            textViewLog = (TextView) listViewItem.findViewById(R.id.textViewLog);
+            imageViewStatus = (ImageView) listViewItem.findViewById(R.id.imageViewStatus);
+
+        }
     }
 }

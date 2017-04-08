@@ -39,7 +39,7 @@ public class NetworkStateChecker extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         this.context = context;
-        db = new DBHandler(context, null, null, 1);
+        db = new DBHandler(context);
 
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -55,6 +55,7 @@ public class NetworkStateChecker extends BroadcastReceiver {
                     do {
                         //calling the method to save the unsynced gps to MySQL
                         saveGPSLog(
+                                cursor.getString(cursor.getColumnIndex(DBHandler.COLUMN_VEHICLE_ID)),
                                 cursor.getInt(cursor.getColumnIndex(DBHandler.COLUMN_ID)),
                                 cursor.getDouble(cursor.getColumnIndex(DBHandler.COLUMN_LATITUDE)),
                                 cursor.getDouble(cursor.getColumnIndex(DBHandler.COLUMN_LONGITUDE)),
@@ -77,11 +78,11 @@ public class NetworkStateChecker extends BroadcastReceiver {
     * if the name is successfully sent
     * we will update the status as Mained in SQLite
     * */
-    private void saveGPSLog(final Integer id, final Double latitude, final Double longitude, final String time, final int direction,
+    private void saveGPSLog(final String vehicle_id,final Integer id, final Double latitude, final Double longitude, final String time, final int direction,
                             final String phase, final int provider_id, final int route_id, final int trip_id)
 
     {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, MainActivity.URL_SAVE_NAME,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, LocationService.URL_SAVE_NAME,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -89,8 +90,7 @@ public class NetworkStateChecker extends BroadcastReceiver {
                             JSONObject obj = new JSONObject(response);
                             if (!obj.getBoolean("error")) {
                                 //updating the status in sqlite
-                                db.updateGPSLogStatus(id, MainActivity.GPSLog_SYNCED_WITH_SERVER);
-
+                                db.updateGPSLogStatus(id, LocationService.GPSLog_SYNCED_WITH_SERVER);
                                 //sending the broadcast to refresh the list
                                 context.sendBroadcast(new Intent(MainActivity.DATA_SAVED_BROADCAST));
                             }
@@ -118,6 +118,7 @@ public class NetworkStateChecker extends BroadcastReceiver {
             @Override
             protected Map getParams() throws AuthFailureError {
                 Map params = new HashMap<>();
+                params.put("vehicle_id", String.valueOf(vehicle_id));
                 params.put("latitude", String.valueOf(latitude));
                 params.put("longitude", String.valueOf(longitude));
                 params.put("time", String.valueOf(time));

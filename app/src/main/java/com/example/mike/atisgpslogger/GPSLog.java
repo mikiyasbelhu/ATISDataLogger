@@ -7,18 +7,21 @@ package com.example.mike.atisgpslogger;
 public class GPSLog {
 
     private int _id;
+    private String vehicle_id;
     private double latitude;
     private double longitude;
     private String time;
     private int direction;
-    private String phase;
+    private int phase;
     private int provider_id;
     private int route_id;
-    private int trip_id;
+    private String trip_id;
     private int status;
 
 
-    public GPSLog(Double latitude, Double longitude, String time, int direction, String phase, int provider_id, int route_id, int trip_id, int status) {
+    public GPSLog(String vehicle_id, Double latitude, Double longitude, String time, int direction,
+                  int phase, int provider_id, int route_id, String  trip_id, int status) {
+        this.vehicle_id = vehicle_id;
         this.latitude = latitude;
         this.longitude = longitude;
         this.time = time;
@@ -31,6 +34,12 @@ public class GPSLog {
 
     }
 
+    public GPSLog(Double latitude, Double longitude)
+    {
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
 
     public int get_id() {
         return _id;
@@ -40,11 +49,19 @@ public class GPSLog {
         this._id = _id;
     }
 
+    public String getVehicle_id() {
+        return vehicle_id;
+    }
+
+    public void setVehicle_id(String vehicle_id) {
+        this.vehicle_id = vehicle_id;
+    }
+
     public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(float latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
@@ -52,7 +69,7 @@ public class GPSLog {
         return longitude;
     }
 
-    public void setLongitude(float longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
@@ -72,11 +89,11 @@ public class GPSLog {
         this.direction = direction;
     }
 
-    public String getPhase() {
+    public int getPhase() {
         return phase;
     }
 
-    public void setPhase(String phase) {
+    public void setPhase(int phase) {
         this.phase = phase;
     }
 
@@ -96,11 +113,11 @@ public class GPSLog {
         this.route_id = route_id;
     }
 
-    public int getTrip_id() {
+    public String getTrip_id() {
         return trip_id;
     }
 
-    public void setTrip_id(int trip_id) {
+    public void setTrip_id(String trip_id) {
         this.trip_id = trip_id;
     }
 

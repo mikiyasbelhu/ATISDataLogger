@@ -38,5 +38,11 @@
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
             android:title="@string/pref_title_update_frequency" />
+        <ListPreference
+            android:defaultValue="0"
+            android:title="Working Hours"
+            android:entries="@array/pref_working_hours_titles"
+            android:entryValues="@array/pref_working_hours_values"
+            android:key="working_hours" />
     </PreferenceCategory>
 </PreferenceScreen>

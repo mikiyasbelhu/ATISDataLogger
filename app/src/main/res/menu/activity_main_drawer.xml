@@ -9,6 +9,14 @@
             android:title="Settings" />
     </group>
 
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/archive"
+            android:icon="@drawable/ic_cloud_download"
+            android:title="Archive" />
+    </group>
+
+
     <item android:title="Communicate">
         <menu>
             <item
@@ -21,5 +29,9 @@
                 android:title="Contact Us" />
         </menu>
     </item>
+    <item
+        android:id="@+id/exit"
+        android:icon="@drawable/ic_exit"
+        android:title="Exit" />
 
 </menu>

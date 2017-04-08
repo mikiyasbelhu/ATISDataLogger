@@ -34,7 +34,7 @@
         <item>2</item>
     </string-array>
 
-    <string name="pref_header_location_resource">Location Settings</string>
+    <string name="pref_header_location_resource">Log Settings</string>
 
     <string name="pref_title_update_frequency">Update frequency</string>
     <string-array name="pref_update_frequency_titles">
@@ -54,6 +54,20 @@
         <item>300</item>
         <item>-1</item>
     </string-array>
+
+    <string name="pref_title_working_hours">Working hours</string>
+    <string-array name="pref_working_hours_titles">
+        <item>Morning(06:00 AM - 01:00 PM)</item>
+        <item>Afternoon(01:00 PM - 07:00 PM)</item>
+    </string-array>
+
+    <string-array name="pref_working_hours_values">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
+    <string name="title_activity_first_time">FirstTimeActivity</string>
+
 
 
 </resources>

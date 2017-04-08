@@ -15,8 +15,14 @@ public class DBHandler extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "gpslog.db";
+
+    public static final String TABLE_DRIVER = "driver";
+    public static final String COLUMN_NAME = "name";
+    public static final String COLUMN_PHONE = "phone";
+
     public static final String TABLE_GPSLog = "gpslog";
     public static final String COLUMN_ID = "_id";
+    public static final String COLUMN_VEHICLE_ID = "vehicle_id";
     public static final String COLUMN_LATITUDE = "latitude";
     public static final String COLUMN_LONGITUDE = "longitude";
     public static final String COLUMN_TIME = "time";
@@ -27,26 +33,33 @@ public class DBHandler extends SQLiteOpenHelper {
     public static final String COLUMN_TRIP_ID = "trip_id";
     public static String COLUMN_STATUS = "status";
 
-    public DBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, DATABASE_NAME, factory, DATABASE_VERSION);
+    public DBHandler(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String query = "CREATE TABLE " + TABLE_GPSLog + " ( " + COLUMN_ID +
                 " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_VEHICLE_ID + " TEXT, " +
                 COLUMN_LATITUDE + " REAL, " +
                 COLUMN_LONGITUDE + " REAL, " +
                 COLUMN_TIME + " TEXT, " +
                 COLUMN_DIRECTION + " INTEGER, " +
-                COLUMN_PHASE + " TEXT, " +
+                COLUMN_PHASE + " INTEGER, " +
                 COLUMN_PROVIDER_ID + " INTEGER, " +
                 COLUMN_ROUTE_ID + " INTEGER, " +
-                COLUMN_TRIP_ID + " INTEGER, " +
+                COLUMN_TRIP_ID + " TEXT, " +
                 COLUMN_STATUS + " INTEGER " +
                 ");";
         sqLiteDatabase.execSQL(query);
 
+        String query2 = "CREATE TABLE " + TABLE_DRIVER + " ( " + COLUMN_VEHICLE_ID +
+                " TEXT PRIMARY KEY , " +
+                COLUMN_NAME + " TEXT, " +
+                COLUMN_PHONE + " INTEGER " +
+                ");";
+        sqLiteDatabase.execSQL(query2);
     }
 
     @Override
@@ -57,6 +70,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     public void addLog(GPSLog gPSLog) {
         ContentValues values = new ContentValues();
+        values.put(COLUMN_VEHICLE_ID, gPSLog.getVehicle_id());
         values.put(COLUMN_LATITUDE, gPSLog.getLatitude());
         values.put(COLUMN_LONGITUDE, gPSLog.getLongitude());
         values.put(COLUMN_TIME, gPSLog.getTime());
@@ -68,6 +82,16 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put(COLUMN_STATUS, gPSLog.getStatus());
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         sqLiteDatabase.insert(TABLE_GPSLog, null, values);
+        sqLiteDatabase.close();
+    }
+
+    public void addDriver(Driver driver) {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_VEHICLE_ID, driver.getVehicle_id());
+        values.put(COLUMN_NAME, driver.getName());
+        values.put(COLUMN_PHONE, driver.getPhone());
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        sqLiteDatabase.insert(TABLE_DRIVER, null, values);
         sqLiteDatabase.close();
     }
 
